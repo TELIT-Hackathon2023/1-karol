@@ -1,5 +1,3 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -14,23 +12,28 @@
 
         <form id="prompt-form">
             <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
-            <label for="user-selection-field">Select user persona:</label>
-
-            <select id="user-selection-field" name="user-selection-field">
-                <option value="option1">User 1</option>
-                <option value="option2">User 2</option>
-                <option value="option3">User 3</option>
-                <option value="option3">User 4</option>
-                <option value="option3">User 5</option>
-            </select>
-
-            <button type="button" onclick="submitForm()">Analyze</button>
+            <div class="button-field">
+                <div id="persona-select">
+                    <label for="user-selection-field">Select user persona:</label>
+                    <select id="user-selection-field" name="user-selection-field">
+                        <option value="option1">User 1</option>
+                        <option value="option2">User 2</option>
+                        <option value="option3">User 3</option>
+                        <option value="option3">User 4</option>
+                        <option value="option3">User 5</option>
+                    </select>
+                </div>
+                <button type="button" onclick="submitForm()">Analyze</button>
+            </div>
         </form>
 
-        <div id="result">
-            <table>
+        <div id="results">
+            <div>
+                <h2>Code improvements</h2>
+                <table>
 
-            </table>
+                </table>
+            </div>
         </div>
 
         <script src="{{ url_for('static', path='evaluate.js') }}"></script>
