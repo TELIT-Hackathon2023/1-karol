@@ -12,8 +12,4 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, **context_data})
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
 
