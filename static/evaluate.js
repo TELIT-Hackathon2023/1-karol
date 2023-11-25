@@ -25,7 +25,7 @@ function submitForm() {
 }
 
 function generateHTMLTable(ci_table) {
-    var tableHTML = '<table border="1"><tr><th>Count</th><th>Description</th><th>Suggestion</th></tr>';
+    var tableHTML = '<table><tr><th>Count</th><th>Description</th><th>Suggestion</th></tr>';
 
     for (var i = 0; i < ci_table.length; i++) {
         var row = ci_table[i];
