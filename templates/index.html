@@ -8,16 +8,28 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-    <div>
+    <div id="content-container">
         <h1>{{ heading }}</h1>
 
-        <form id="myForm">
-            <label for="input_field">Enter something:</label>
-            <input type="text" id="input_field" name="input_field" required>
+        <form id="prompt-form">
+            <label for="url-field">Enter something:</label>
+            <input type="text" id="url-field" name="url-field" required>
+            <label for="user-selection-field">Select an option:</label>
+
+            <select id="user-selection-field" name="user-selection-field">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+
             <button type="button" onclick="submitForm()">Submit</button>
         </form>
 
-        <div id="result"></div>
+        <div id="result">
+            <table>
+
+            </table>
+        </div>
 
         <script src="{{ url_for('static', path='evaluate.js') }}"></script>
     </div>

@@ -1,14 +1,14 @@
 // static/evaluate.js
 
 function submitForm() {
-    const inputField = $('#input_field').val();
+    const inputField = $('#url-field').val();
     const resultDiv = $('#result');
 
     try {
         $.ajax({
             url: '/process_form',
             type: 'POST',
-            data: { input_field: inputField },
+            data: { url_field: inputField },
             success: function (data) {
                 console.log(data);
             },
