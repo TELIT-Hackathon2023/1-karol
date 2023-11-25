@@ -94,6 +94,8 @@ def get_domain_hyperlinks(local_domain, url):
 
 
 def crawl(url):
+    css_properties = set()
+
     # Parse the URL and get the domain
     local_domain = urlparse(url).netloc
 
@@ -121,11 +123,11 @@ def crawl(url):
         url = queue.pop()
         print(url)  # for debugging and to see the progress
 
+        # Get the text from the URL using BeautifulSoup
+        soup = BeautifulSoup(requests.get(url).text, "html.parser")
+
         # Save text from the url to a <url>.txt file
         with open('text/' + local_domain + '/' + url[8:].replace("/", "_") + ".txt", "w", encoding="UTF-8") as f:
-
-            # Get the text from the URL using BeautifulSoup
-            soup = BeautifulSoup(requests.get(url).text, "html.parser")
 
             # Get the text but remove the tags
             text = soup.get_text()
@@ -136,6 +138,25 @@ def crawl(url):
 
             # Otherwise, write the text to the file in the text directory
             f.write(text)
+
+        with open('text/' + local_domain + '/' + 'tags-' + url[8:].replace("/", "_") + ".txt", "w",
+                  encoding="UTF-8") as f:
+
+            # Find all HTML elements with 'style' attribute
+            elements_with_style = soup.find_all(style=True)
+
+            # Extract and print the CSS properties from 'style' attribute
+            for element in elements_with_style:
+                style = element['style']
+                styles = style.split(';')
+                for s in styles:
+                    try:
+                        prop, _ = s.split(':', 1)
+                        css_properties.add(prop)
+                    except ValueError:
+                        continue
+
+            f.write(';'.join(css_properties))
 
         # Get the hyperlinks from the URL and add them to the queue
         for link in get_domain_hyperlinks(local_domain, url):

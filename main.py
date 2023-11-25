@@ -17,7 +17,6 @@ async def root(request: Request):
     context_data = {"request": request, "heading": "Karol - Usability Evaluator"}
     return templates.TemplateResponse("index.html", {"request": request, **context_data})
 
-
 @app.post("/process_form")
 async def process_form(request: Request):
     form_data = await request.form()
