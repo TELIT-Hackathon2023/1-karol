@@ -5,9 +5,31 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='mobile.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #4CAF50;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    }
+    </style>
 </head>
 <body>
-    <div id="content-container" class="content-container-class">
+
+    <div id="content-container">
         <h1>{{ heading }}</h1>
 
         <div id="prompt-form">
@@ -34,6 +56,10 @@
 
                 </table>
             </div>
+        </div>
+
+        <div class="loader">
+
         </div>
 
         <script src="{{ url_for('static', path='evaluate.js') }}"></script>

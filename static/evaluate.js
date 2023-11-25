@@ -11,6 +11,7 @@ function submitForm() {
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
 
+
     try {
         let ci_table;
 
@@ -21,7 +22,9 @@ function submitForm() {
             success: function (data) {
                 ci_table = data["code-improvements"];
                 generateHTMLTable(ci_table);
+
                 $("#results").show();
+
             },
         });
 
