@@ -13,17 +13,18 @@
         <h1>{{ heading }}</h1>
 
         <form id="prompt-form">
-            <label for="url-field">Enter something:</label>
-            <input type="text" id="url-field" name="url-field" required>
-            <label for="user-selection-field">Select an option:</label>
+            <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
+            <label for="user-selection-field">Select user persona:</label>
 
             <select id="user-selection-field" name="user-selection-field">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                <option value="option1">User 1</option>
+                <option value="option2">User 2</option>
+                <option value="option3">User 3</option>
+                <option value="option3">User 4</option>
+                <option value="option3">User 5</option>
             </select>
 
-            <button type="button" onclick="submitForm()">Submit</button>
+            <button type="button" onclick="submitForm()">Analyze</button>
         </form>
 
         <div id="result">
