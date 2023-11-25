@@ -28,6 +28,11 @@
             </div>
         </div>
 
+        <div id="analyzing" style="display: none">
+            <p>Analyzing...</p>
+            <div class="loader"></div>
+        </div>
+
         <div id="results" style="display: none">
             <div id="code-improvements">
                 <h2>Code improvements</h2>
@@ -35,11 +40,6 @@
 
                 </table>
             </div>
-        </div>
-
-        <div id="analyzing" style="display: none">
-            <p>Analyzing...</p>
-            <div class="loader"></div>
         </div>
 
         <script src="{{ url_for('static', path='evaluate.js') }}"></script>

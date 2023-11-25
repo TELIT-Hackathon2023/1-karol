@@ -11,7 +11,7 @@ function submitForm() {
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
     $("#analyzing").show();
-
+    $("#results").hide();
     try {
         let ci_table;
 
@@ -36,11 +36,11 @@ function submitForm() {
 }
 
 function generateHTMLTable(ci_table) {
-    var tableHTML = '<table><tr><th>Count</th><th>Description</th><th>Suggestion</th></tr>';
+    var tableHTML = '<table>';
 
     for (var i = 0; i < ci_table.length; i++) {
         var row = ci_table[i];
-        tableHTML += '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + row[2] + '</td></tr>';
+        tableHTML += '<tr><td><div class="ci-description">' + row[1] + '</div><div class="ci-suggestion">' + row[2] + '</div></td><td class="ci-count">' + row[0] + ' x</td></tr>';
     }
 
     tableHTML += '</table>';

@@ -119,3 +119,17 @@ th, td {
     padding: 10px;
     text-align: left;
 }
+
+.ci-description{
+    font-size: 14px;
+    padding-bottom: 6px;
+}
+
+.ci-suggestion {
+    font-size: 12px;
+}
+
+.ci-count {
+    font-size: 10px;
+    width: 32px;
+}
