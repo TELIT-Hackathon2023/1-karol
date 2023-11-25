@@ -24,7 +24,7 @@ function submitForm() {
                 generateHTMLTable(ci_table);
 
                 $("#results").show();
-
+                $("#content-container").addClass("content-container-class")
             },
         });
 
