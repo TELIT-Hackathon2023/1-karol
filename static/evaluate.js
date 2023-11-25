@@ -1,3 +1,5 @@
+// static/evaluate.js
+
 function submitForm() {
     const inputField = $('#input_field').val();
     const resultDiv = $('#result');
@@ -20,3 +22,4 @@ function submitForm() {
         resultDiv.text('Error occurred during form submission.');
     }
 }
+
