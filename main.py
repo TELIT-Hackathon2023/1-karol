@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from validators import validator
 from fastapi import HTTPException
 
 app = FastAPI()
@@ -18,7 +19,7 @@ async def root(request: Request):
 @app.post("/process_form")
 async def process_form(request: Request):
     form_data = await request.form()
-    input_field_value = form_data.get("input_field", "No value provided")
+    validator.validate(form_data.get("url_field", "No value provided"))
 
     return {"result": form_data}
 
