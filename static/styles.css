@@ -37,7 +37,7 @@ body {
     padding: 40px 50px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: #f8f8f8;
+    background-color: #fafaf9;
     display: inline-block;
     text-align: left;
     width: 720px;
@@ -47,7 +47,7 @@ h1 {
     color: #333;
     text-align: center;
     margin: 0;
-    padding-bottom: 20px;
+    padding-bottom: 35px;
 }
 
 #prompt-form {
@@ -83,7 +83,7 @@ input[type="text"] {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #16a34a;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -93,7 +93,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #16a34a;
 }
 
 #results {

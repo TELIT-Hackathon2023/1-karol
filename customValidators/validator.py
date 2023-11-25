@@ -1,5 +1,6 @@
 import w3c_validator
 import validators
+from openai_api import client
 
 
 def validate(url):

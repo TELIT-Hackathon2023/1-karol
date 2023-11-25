@@ -6,8 +6,9 @@ def main():
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system",
-             "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-            {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+            "content": "You are a poetic assistant, skilled in explaining about website usability."},
+            {"role": "user",
+            "content": "Complete provided table by replacing 'Not implemented' with explanation how can description from array have impact on website usability "}
         ]
     )
 

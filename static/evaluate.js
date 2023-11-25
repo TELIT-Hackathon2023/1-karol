@@ -40,7 +40,7 @@ function generateHTMLTable(ci_table) {
 
     for (var i = 0; i < ci_table.length; i++) {
         var row = ci_table[i];
-        tableHTML += '<tr><td><div class="ci-description">' + row[1] + '</div><div class="ci-suggestion">' + row[2] + '</div></td><td class="ci-count">' + row[0] + ' x</td></tr>';
+        tableHTML += '<tr><td><div class="ci-description">' + row[1] + '</div><div class="ci-suggestion">' + row[2] + '</div></td><td class="ci-count">' + row[0] + 'x</td></tr>';
     }
 
     tableHTML += '</table>';
