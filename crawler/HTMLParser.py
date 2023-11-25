@@ -93,8 +93,9 @@ def get_domain_hyperlinks(local_domain, url):
     return list(set(clean_links))
 
 
-def crawl(url):
+def crawl(url, max_crawls=1):
     css_properties = set()
+    crawls_counter = 0
 
     # Parse the URL and get the domain
     local_domain = urlparse(url).netloc
@@ -118,6 +119,7 @@ def crawl(url):
 
     # While the queue is not empty, continue crawling
     while queue:
+        crawls_counter += 1
 
         # Get the next URL from the queue
         url = queue.pop()
@@ -155,11 +157,14 @@ def crawl(url):
                         css_properties.add(prop)
                     except ValueError:
                         continue
-
             f.write(';'.join(css_properties))
+
+        if crawls_counter >= max_crawls:
+            break
 
         # Get the hyperlinks from the URL and add them to the queue
         for link in get_domain_hyperlinks(local_domain, url):
             if link not in seen:
                 queue.append(link)
                 seen.add(link)
+
