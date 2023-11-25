@@ -10,7 +10,7 @@ function submitForm() {
     const inputField = $('#url-field').val();
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
-
+    $("#analyzing").show();
 
     try {
         let ci_table;
@@ -24,13 +24,14 @@ function submitForm() {
                 generateHTMLTable(ci_table);
 
                 $("#results").show();
-                $("#content-container").addClass("content-container-class")
+                $("#analyzing").hide();
             },
         });
 
     } catch (error) {
         console.error('Error:', error);
         resultDiv.text('Error occurred during form submission.');
+
     }
 }
 
