@@ -10,7 +10,7 @@
     <div id="content-container">
         <h1>{{ heading }}</h1>
 
-        <form id="prompt-form">
+        <div id="prompt-form">
             <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
             <div class="button-field">
                 <div id="persona-select">
@@ -25,9 +25,9 @@
                 </div>
                 <button type="button" onclick="submitForm()">Analyze</button>
             </div>
-        </form>
+        </div>
 
-        <div id="results">
+        <div id="results" style="display: none">
             <div id="code-improvements">
                 <h2>Code improvements</h2>
                 <table>

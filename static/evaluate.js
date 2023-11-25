@@ -1,4 +1,10 @@
 // static/evaluate.js
+$('#url-field, #user-selection-field').keypress(function (e) {
+    if (e.which === 13) {
+        // 13 is the key code for Enter
+        submitForm();
+    }
+});
 
 function submitForm() {
     const inputField = $('#url-field').val();
@@ -13,8 +19,9 @@ function submitForm() {
             type: 'POST',
             data: { url_field: inputField, user_field: optionField },
             success: function (data) {
-                ci_table = data["code-improvements"]
-                generateHTMLTable(ci_table)
+                ci_table = data["code-improvements"];
+                generateHTMLTable(ci_table);
+                $("#results").show();
             },
         });
 
