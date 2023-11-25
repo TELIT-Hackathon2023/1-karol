@@ -1,18 +1,25 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="sk">
 <head>
     <title>FastAPI and Jinja2 Example</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <div>
         <h1>{{ message }}</h1>
 
-        <form method="post" action="/process_form">
-            <label for="input_field">Enter link:</label>
+        <form id="myForm">
+            <label for="input_field">Enter something:</label>
             <input type="text" id="input_field" name="input_field" required>
-            <button type="submit">Submit</button>
+            <button type="button" onclick="submitForm()">Submit</button>
         </form>
+
+        <div id="result"></div>
+
+        <script src="{{ url_for('static', path='evaluate.js') }}"></script>
     </div>
 </body>
 </html>
