@@ -1,0 +1,108 @@
+[
+  {
+    "persona_id": "middle-aged-male-generic",
+    "age_range": "18-59",
+    "gender": "male",
+    "occupations": [
+      "driver",
+      "carpenter",
+      "coast lifeguard"
+    ],
+    "education_level": [
+      "high school",
+      "none"
+    ],
+    "technical_skill": [
+      "low",
+      "medium"
+    ],
+    "familiar_with_product": false
+  },
+  {
+    "persona_id": "middle-aged-female-generic",
+    "age_range": "18-59",
+    "gender": "female",
+    "occupations": [
+      "stylist",
+      "doctor",
+      "lawyer"
+    ],
+    "education_level": [
+      "high school",
+      "university"
+    ],
+    "technical_skill": [
+      "low",
+      "medium"
+    ],
+    "familiar_with_product": false
+  },
+  {
+    "persona_id": "child-male-generic",
+    "age_range": "5-18",
+    "gender": "male",
+    "occupations": [
+      "student",
+      "graduate"
+    ],
+    "education_level": [
+      "high school"
+    ],
+    "technical_skill": [
+      "medium",
+      "high"
+    ],
+    "familiar_with_product": false
+  },
+  {
+    "persona_id": "child-female-generic",
+    "age_range": "5-18",
+    "gender": "female",
+    "occupations": [
+      "student",
+      "graduate"
+    ],
+    "education_level": [
+      "high school"
+    ],
+    "technical_skill": [
+      "medium",
+      "high"
+    ],
+    "familiar_with_product": false
+  },
+  {
+    "persona_id": "elderly-male-generic",
+    "age_range": "59-99",
+    "gender": "male",
+    "occupations": [
+      "chessmaster",
+      "retired"
+    ],
+    "education_level": [
+      "high school",
+      "university"
+    ],
+    "technical_skill": [
+      "low"
+    ],
+    "familiar_with_product": false
+  },
+  {
+    "persona_id": "elderlz-female-generic",
+    "age_range": "59-99",
+    "gender": "female",
+    "occupations": [
+      "retired",
+      "painter"
+    ],
+    "education_level": [
+      "high school",
+      "university"
+    ],
+    "technical_skill": [
+      "low"
+    ],
+    "familiar_with_product": false
+  }
+]

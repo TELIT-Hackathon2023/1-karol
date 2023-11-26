@@ -15,5 +15,5 @@ def main():
     print(completion.choices[0].message)
 
 
-if __name__ == "__main__":
+if __name__ == "__openai_main__":
     main()
