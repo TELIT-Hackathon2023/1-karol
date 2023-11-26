@@ -118,7 +118,7 @@ table {
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #d4d4d4;
 }
 
 th, td {
@@ -126,13 +126,12 @@ th, td {
     text-align: left;
 }
 
-.ci-description {
+.semantics-error,
+.persona-error,
+.description {
+    font-weight: bold;
     font-size: 14px;
     padding-bottom: 6px;
-}
-
-.ci-suggestion {
-    font-size: 12px;
 }
 
 .ci-count {
@@ -145,15 +144,47 @@ th, td {
     width: 100px;
 }
 
-.semantics-suggestion {
-    font-size: 12px;
-}
-
 .persona-error {
-    font-size: 12px;
     width: 200px;
 }
 
-.persona-suggestion {
-    font-size: 10px;
+.suggestion {
+    color: #262626;
+    font-size: 13px;
 }
+
+.ai-mark {
+    font-weight: 400;
+    font-size: 13px;
+    color: #525252;
+}
+
+.persona-error-tb {
+    background-color: #fee2e2;
+}
+
+.semantics-error-tb {
+    background-color: #ffedd5;
+}
+
+#was {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    flex-direction: column;
+}
+
+#was .score {
+    font-size: xxx-large;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#was .text {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+}
+

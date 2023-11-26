@@ -60,6 +60,7 @@ function submitForm() {
                 generateSemanticsTable(semantics_table);
                 generateCSSTagsTable(css_table, domain)
                 generatePersonaTable(persona_table)
+                $("#was .score").replaceWith("<p class=\"score\">" + score + "/10</p>")
 
             },
             statusCode: {
@@ -86,7 +87,7 @@ function generateHTMLTable(ci_table) {
 
     for (var i = 0; i < ci_table.length; i++) {
         var row = ci_table[i];
-        tableHTML += '<tr><td><div class="ci-description">' + row[1] + '</div><div class="ci-suggestion">' + row[2] + '</div></td><td class="ci-count">' + row[0] + '</td></tr>';
+        tableHTML += '<tr><td><div class="description">' + row[1] + '</div><div class="suggestion"><span class="ai-mark">(AI) → </span> ' + row[2] + '</div></td><td class="ci-count">' + row[0] + '</td></tr>';
     }
 
     tableHTML += '</table>';
@@ -102,7 +103,7 @@ function generateSemanticsTable(semantics_table) {
 
         for (var i = 0; i < semantics_table.length; i++) {
             var row = semantics_table[i];
-            tableHTML += '<tr><td><div class="semantics-error">' + row[0] + '</div></td><td class="semantics-suggestion">' + row[1] + '</td></tr>';
+            tableHTML += '<tr class="semantics-error-tb"><td><div class="semantics-error">' + row[0] + '</div></td><td class="suggestion"><span class="ai-mark">(AI) → </span> ' + row[1] + '</td></tr>';
         }
 
         tableHTML += '</table>';
@@ -119,7 +120,7 @@ function generatePersonaTable(persona_table){
 
         for (var i = 0; i < persona_table.length; i++) {
             var row = persona_table[i];
-            tableHTML += '<tr><td><div class="persona-error">' + row[0] + '</div></td><td class="persona-suggestion">' + row[1] + '</td></tr>';
+            tableHTML += '<tr class="persona-error-tb"><td><div class="persona-error"><span class="ai-mark">(AI) → </span>' + row[0] + '</div></td><td class="suggestion"><span class="ai-mark">(AI) → </span> ' + row[1] + '</td></tr>';
         }
 
         tableHTML += '</table>';
@@ -166,11 +167,11 @@ function generateCSSTagsTable(css_table, domain) {
             })
 
             Object.keys(partiallySupported).forEach(key => {
-                tableHTML += '<tr><td><div class="ci-description">' + key + '</div><div class="ci-suggestion">' + 'This tag is partially supported' + '</div></td><td class="ci-count">' + partiallySupported[key].join(' ') + '</td></tr>';
+                tableHTML += '<tr><td><div class="description">' + key + '</div><div class="suggestion">' + 'This tag is partially supported' + '</div></td><td class="ci-count">' + partiallySupported[key].join(' ') + '</td></tr>';
             })
 
             Object.keys(supportedSince).forEach(key => {
-                tableHTML += '<tr><td><div class="ci-description">' + key + '</div><div class="ci-suggestion">' + 'This tag is supported in late versions' + '</div></td><td class="ci-count">' + supportedSince[key].join(' ') + '</td></tr>';
+                tableHTML += '<tr><td><div class="description">' + key + '</div><div class="suggestion">' + 'This tag is supported in late versions' + '</div></td><td class="ci-count">' + supportedSince[key].join(' ') + '</td></tr>';
             })
         }
 
