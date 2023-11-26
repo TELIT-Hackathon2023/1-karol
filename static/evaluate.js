@@ -1,17 +1,28 @@
 // static/evaluate.js
 
 const browsers = ['chrome', 'edge', 'firefox', 'ie', 'safari']
-
+let submitting = false
 $('#url-field, #user-selection-field').keypress(function (e) {
-    if (e.which === 13) {
+    if (e.which === 13 && $('#url-field') !== '') {
         // 13 is the key code for Enter
         submitForm();
     }
 });
 
+function inputOnChange() {
+    const submitButton = $('#form-submit-button')
+    const inputField = $('#url-field')
+    if (inputField.val() === '') {
+        submitButton.prop('disabled', true);
+    } else if (inputField.val() !== '' && !submitting) {
+        submitButton.prop('disabled', false);
+    }
+}
+
 function submitForm() {
     const submitButton = $('#form-submit-button');
     submitButton.prop('disabled', true);
+    submitting = true
     const inputField = $('#url-field').val();
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
@@ -29,6 +40,7 @@ function submitForm() {
             success: function (data) {
                 $("#results").show();
                 $("#analyzing").hide();
+                submitting = false
                 submitButton.prop('disabled', false);
                 ci_table = data["code-improvements"];
                 css_table = data["css-tags-improvements"];
@@ -39,6 +51,7 @@ function submitForm() {
             },
             statusCode: {
                 500: function (data) {
+                    submitting = false
                     submitButton.prop('disabled', false);
                     alert(data.responseJSON.detail);
                 }

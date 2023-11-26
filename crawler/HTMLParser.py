@@ -93,12 +93,12 @@ def get_domain_hyperlinks(local_domain, url):
     return list(set(clean_links))
 
 
-def crawl(url, max_crawls=1):
+def crawl(url, max_crawls=1, domain=None):
     css_properties = set()
     crawls_counter = 0
 
     # Parse the URL and get the domain
-    local_domain = urlparse(url).netloc
+    local_domain = urlparse(url).netloc if domain is None else domain
 
     # Create a queue to store the URLs to crawl
     queue = deque([url])
@@ -167,4 +167,3 @@ def crawl(url, max_crawls=1):
             if link not in seen:
                 queue.append(link)
                 seen.add(link)
-

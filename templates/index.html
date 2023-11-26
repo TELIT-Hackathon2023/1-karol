@@ -12,7 +12,7 @@
     <h1>{{ heading }}</h1>
 
     <div id="prompt-form">
-        <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
+        <input type="text" id="url-field" name="url-field" oninput="inputOnChange()" required placeholder="Enter the website address">
         <div class="button-field">
             <div id="persona-select">
                 <label for="user-selection-field">Select user persona:</label>
@@ -25,7 +25,7 @@
                     <option value="elderly-female-generic">"elderly-female-generic"</option>
                 </select>
             </div>
-            <button id="form-submit-button" type="button" onclick="submitForm()">Analyze</button>
+            <button disabled id="form-submit-button" type="button" onclick="submitForm()">Analyze</button>
         </div>
     </div>
 

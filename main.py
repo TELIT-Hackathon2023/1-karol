@@ -47,7 +47,7 @@ async def process_form(request: Request):
     css_improvements = {domain: []}
 
     try:
-        crawl(url)
+        crawl(url,domain=domain)
         TextToCSVClass(domain).to_csv()
         # Make a GET request to the Express server
         response = requests.get(f'http://localhost:3000/checktags?domain={domain}')
@@ -61,25 +61,25 @@ async def process_form(request: Request):
         print(e)
         raise HTTPException(500)
 
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system",
-             "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
-            {"role": "user",
-             "content": f"data list: {str(descriptions)}"}
-        ]
-    )
-
-    resp = json.loads(completion.choices[0].message.content)
-
-    for dictionary in resp:
-        for key in ['count', 'description', 'explanation']:
-            if key not in dictionary:
-                raise HTTPException(500, "Unable to parse GPT response")
-
-    resp = [(x['count'], x['description'], x['explanation']) for x in resp]
-
+    # completion = client.chat.completions.create(
+    #     model="gpt-3.5-turbo",
+    #     messages=[
+    #         {"role": "system",
+    #          "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
+    #         {"role": "user",
+    #          "content": f"data list: {str(descriptions)}"}
+    #     ]
+    # )
+    #
+    # resp = json.loads(completion.choices[0].message.content)
+    #
+    # for dictionary in resp:
+    #     for key in ['count', 'description', 'explanation']:
+    #         if key not in dictionary:
+    #             raise HTTPException(500, "Unable to parse GPT response")
+    #
+    # resp = [(x['count'], x['description'], x['explanation']) for x in resp]
+    resp = []
     return {"code-improvements": resp,
             "domain": domain,
             "css-tags-improvements": css_improvements}
