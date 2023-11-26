@@ -125,7 +125,7 @@ th, td {
     text-align: left;
 }
 
-.ci-description{
+.ci-description {
     font-size: 14px;
     padding-bottom: 6px;
 }
@@ -137,4 +137,13 @@ th, td {
 .ci-count {
     font-size: 10px;
     width: 32px;
+}
+
+.semantics-error {
+    font-size: 12px;
+    width: 100px;
+}
+
+.semantics-suggestion {
+    font-size: 10px;
 }

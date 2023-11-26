@@ -167,3 +167,31 @@ def crawl(url, max_crawls=1, domain=None):
             if link not in seen:
                 queue.append(link)
                 seen.add(link)
+
+
+def scrape_html_tags(url):
+    response = requests.get(url)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the HTML content using BeautifulSoup
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find the <body> tag and extract all tags within it
+        tags = soup.body.find_all(recursive=False)  # Set recursive=False to get direct children
+
+        # Remove the content within all tags inside the <body>
+        for tag in tags:
+            tag.string = ""
+
+        # Remove all <script> tags and their content from the HTML
+        for script in soup.find_all('script'):
+            script.decompose()
+        # Remove all <script> tags and their content from the HTML
+        for style in soup.find_all('style'):
+            style.decompose()
+
+        # Get the modified HTML content
+        return soup.prettify()
+
+    return ""

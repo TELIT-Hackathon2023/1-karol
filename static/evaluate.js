@@ -20,6 +20,14 @@ function inputOnChange() {
 }
 
 function submitForm() {
+    const endSubmitting = (success) => {
+        if (success) {
+            $("#results").show();
+        }
+        $("#analyzing").hide();
+        submitting = false
+        submitButton.prop('disabled', false);
+    }
     const submitButton = $('#form-submit-button');
     submitButton.prop('disabled', true);
     submitting = true
@@ -32,27 +40,30 @@ function submitForm() {
         let ci_table;
         let css_table;
         let domain;
+        let semantics_table;
 
         $.ajax({
             url: '/process_form',
             type: 'POST',
             data: {url_field: inputField, user_field: optionField},
             success: function (data) {
-                $("#results").show();
-                $("#analyzing").hide();
-                submitting = false
-                submitButton.prop('disabled', false);
+                endSubmitting(true)
                 ci_table = data["code-improvements"];
                 css_table = data["css-tags-improvements"];
+                semantics_table = data["semantic-suggestions"]
                 domain = data["domain"];
                 generateHTMLTable(ci_table);
+                generateSemanticsTable(semantics_table);
                 generateCSSTagsTable(css_table, domain)
 
             },
             statusCode: {
                 500: function (data) {
-                    submitting = false
-                    submitButton.prop('disabled', false);
+                    endSubmitting(false)
+                    alert(data.responseJSON.detail);
+                },
+                400: function (data) {
+                    endSubmitting(false)
                     alert(data.responseJSON.detail);
                 }
             }
@@ -76,6 +87,23 @@ function generateHTMLTable(ci_table) {
     tableHTML += '</table>';
 
     $('#code-improvements table').replaceWith(tableHTML);
+}
+
+function generateSemanticsTable(semantics_table) {
+    let tableHTML = '<h3>No improvements for used tags<h3/>';
+
+    if(semantics_table.length > 0){
+        tableHTML = '<table>';
+
+        for (var i = 0; i < semantics_table.length; i++) {
+            var row = semantics_table[i];
+            tableHTML += '<tr><td><div class="semantics-error">' + row[0] + '</div></td><td class="semantics-suggestion">' + row[1] + '</td></tr>';
+        }
+
+        tableHTML += '</table>';
+    }
+
+    $('#semantic-suggestions table').replaceWith(tableHTML);
 }
 
 function generateCSSTagsTable(css_table, domain) {

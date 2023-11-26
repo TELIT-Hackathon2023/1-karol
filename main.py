@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -7,7 +9,7 @@ from fastapi import HTTPException
 from openai_api import client
 import json
 import tldextract
-from crawler import crawl, TextToCSVClass
+from crawler import crawl, TextToCSVClass, scrape_html_tags
 import requests
 
 app = FastAPI()
@@ -34,20 +36,21 @@ async def process_form(request: Request):
             if dictionary.get('persona_id') == option:
                 persona = dictionary
 
-    print(persona)
+    if not validator.is_url(url):
+        raise HTTPException(400, "Error format for provided url")
+
+    scraped_html = scrape_html_tags(url)
 
     if not validator.is_url(url):
-        raise HTTPException(400)
+        raise HTTPException(500, "Unable to scrape and parse html")
 
     descriptions = validator.validate(url)
-    print(descriptions)
 
     domain = parse_domain(url)
-    print(domain)
     css_improvements = {domain: []}
 
     try:
-        crawl(url,domain=domain)
+        crawl(url, domain=domain)
         TextToCSVClass(domain).to_csv()
         # Make a GET request to the Express server
         response = requests.get(f'http://localhost:3000/checktags?domain={domain}')
@@ -61,28 +64,46 @@ async def process_form(request: Request):
         print(e)
         raise HTTPException(500)
 
-    # completion = client.chat.completions.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=[
-    #         {"role": "system",
-    #          "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
-    #         {"role": "user",
-    #          "content": f"data list: {str(descriptions)}"}
-    #     ]
-    # )
-    #
-    # resp = json.loads(completion.choices[0].message.content)
-    #
-    # for dictionary in resp:
-    #     for key in ['count', 'description', 'explanation']:
-    #         if key not in dictionary:
-    #             raise HTTPException(500, "Unable to parse GPT response")
-    #
-    # resp = [(x['count'], x['description'], x['explanation']) for x in resp]
-    resp = []
-    return {"code-improvements": resp,
+    completion = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system",
+             "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return provided data in JSON (with keys `improvements` and `semantics`) as array under the key `improvements`, where each element will be object with count, description and explenation"},
+            {"role": "user", "content": f"data list: {str(descriptions)}"},
+            {"role": "assistant",
+             "content": "Now you will receive prettified html structure and you will analyse the structure from the semantics point. Found errors and suggestions will be added to previous JSON result under the key `semantics` in form of object with keys `error` and `suggestion`"},
+            {"role": "user", "content": f"html structure:\n\n {str(scraped_html)}"},
+        ]
+    )
+
+    if completion.choices[0].finish_reason != 'stop':
+        raise HTTPException(500, "Too long input for GPT")
+
+    try:
+        resp = json.loads(completion.choices[0].message.content)
+        print(resp)
+    except JSONDecodeError:
+        raise HTTPException(500, "Unable to parse GPT response")
+
+    for dictionary in resp['improvements']:
+        for key in ['count', 'description', 'explanation']:
+            if key not in dictionary:
+                raise HTTPException(500, "GPT response was returned in inappropriate format")
+
+    for dictionary in resp['semantics']:
+        for key in ['error', 'suggestion']:
+            if key not in dictionary:
+                raise HTTPException(500, "GPT response was returned in inappropriate format")
+
+    code_improvements = [(x['count'], x['description'], x['explanation']) for x in resp['improvements']]
+    semantic_suggestions = [(x['error'], x['suggestion']) for x in resp['semantics']]
+
+    print(resp['semantics'])
+
+    return {"code-improvements": code_improvements,
             "domain": domain,
-            "css-tags-improvements": css_improvements}
+            "css-tags-improvements": css_improvements,
+            "semantic-suggestions": semantic_suggestions}
 
 
 # UTILITIES
