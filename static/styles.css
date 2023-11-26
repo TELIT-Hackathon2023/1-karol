@@ -82,7 +82,7 @@ input[type="text"] {
     border-radius: 5px;
 }
 
-button {
+#form-submit-button {
     background-color: #16a34a;
     color: white;
     padding: 12px 20px;
@@ -92,8 +92,13 @@ button {
     width: 100px;
 }
 
-button:hover {
-    background-color: #16a34a;
+#form-submit-button:hover {
+    background-color: #205411;
+}
+
+#form-submit-button:disabled {
+    background-color: #c7c7c5;
+    cursor: not-allowed;
 }
 
 #results {

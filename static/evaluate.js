@@ -10,6 +10,8 @@ $('#url-field, #user-selection-field').keypress(function (e) {
 });
 
 function submitForm() {
+    const submitButton = $('#form-submit-button');
+    submitButton.prop('disabled',true);
     const inputField = $('#url-field').val();
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
@@ -33,6 +35,7 @@ function submitForm() {
 
                 $("#results").show();
                 $("#analyzing").hide();
+                submitButton.prop('disabled',false);
             },
         });
 

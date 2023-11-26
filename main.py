@@ -50,19 +50,18 @@ async def process_form(request: Request):
         print(e)
         raise HTTPException(500)
 
-    # completion = client.chat.completions.create(
-    #     model="gpt-4",
-    #     messages=[
-    #         {"role": "system",
-    #          "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
-    #         {"role": "user",
-    #          "content": f"data list: {str(descriptions)}"}
-    #     ]
-    # )
-    #
-    # resp = json.loads(completion.choices[0].message.content)
-    # resp = [(x['count'], x['description'], x['explanation']) for x in resp]
-    resp = []
+    completion = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system",
+             "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
+            {"role": "user",
+             "content": f"data list: {str(descriptions)}"}
+        ]
+    )
+
+    resp = json.loads(completion.choices[0].message.content)
+    resp = [(x['count'], x['description'], x['explanation']) for x in resp]
 
     return {"code-improvements": resp,
             "domain": domain,
