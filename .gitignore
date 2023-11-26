@@ -1,6 +1,9 @@
 #Custom
 processed
 text
+data_indented.json
+data.json
+embeddings.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
