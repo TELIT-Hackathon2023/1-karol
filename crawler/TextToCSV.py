@@ -31,4 +31,3 @@ class TextToCSV:
         # Set the text column to be the raw text with the newlines removed
         df['text'] = df.fname + ". " + self.remove_newlines(df.text)
         df.to_csv('processed/scraped.csv')
-        # df.head()
