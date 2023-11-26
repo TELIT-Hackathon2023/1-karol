@@ -11,7 +11,7 @@ $('#url-field, #user-selection-field').keypress(function (e) {
 
 function submitForm() {
     const submitButton = $('#form-submit-button');
-    submitButton.prop('disabled',true);
+    submitButton.prop('disabled', true);
     const inputField = $('#url-field').val();
     const optionField = $('#user-selection-field').val();
     const resultDiv = $('#result');
@@ -27,16 +27,22 @@ function submitForm() {
             type: 'POST',
             data: {url_field: inputField, user_field: optionField},
             success: function (data) {
+                $("#results").show();
+                $("#analyzing").hide();
+                submitButton.prop('disabled', false);
                 ci_table = data["code-improvements"];
                 css_table = data["css-tags-improvements"];
                 domain = data["domain"];
                 generateHTMLTable(ci_table);
                 generateCSSTagsTable(css_table, domain)
 
-                $("#results").show();
-                $("#analyzing").hide();
-                submitButton.prop('disabled',false);
             },
+            statusCode: {
+                500: function (data) {
+                    submitButton.prop('disabled', false);
+                    alert(data.responseJSON.detail);
+                }
+            }
         });
 
     } catch (error) {

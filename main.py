@@ -24,7 +24,17 @@ async def root(request: Request):
 @app.post("/process_form")
 async def process_form(request: Request):
     form_data = await request.form()
-    url = form_data.get("url_field", "No value provided");
+    url = form_data.get("url_field", "No value provided")
+    option = form_data.get("user-selection-field", "middle-aged-male-generic")
+    persona = {}
+
+    with open("personas/personas.json", 'r') as json_file:
+        data = json.load(json_file)
+        for dictionary in data:
+            if dictionary.get('persona_id') == option:
+                persona = dictionary
+
+    print(persona)
 
     if not validator.is_url(url):
         raise HTTPException(400)
@@ -33,6 +43,7 @@ async def process_form(request: Request):
     print(descriptions)
 
     domain = parse_domain(url)
+    print(domain)
     css_improvements = {domain: []}
 
     try:
@@ -51,7 +62,7 @@ async def process_form(request: Request):
         raise HTTPException(500)
 
     completion = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system",
              "content": "You are skilled in explaining about website usability and you will recieve data resembling python list, where each element is tuple containing count, description and explanation values. I need you to read the description value and generate according explanation value which will be resulting explenation.Return porvided data in JSON, where each element will be object with count, description and explenation"},
@@ -61,6 +72,12 @@ async def process_form(request: Request):
     )
 
     resp = json.loads(completion.choices[0].message.content)
+
+    for dictionary in resp:
+        for key in ['count', 'description', 'explanation']:
+            if key not in dictionary:
+                raise HTTPException(500, "Unable to parse GPT response")
+
     resp = [(x['count'], x['description'], x['explanation']) for x in resp]
 
     return {"code-improvements": resp,

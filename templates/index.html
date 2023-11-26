@@ -8,47 +8,48 @@
 </head>
 <body>
 
-    <div id="content-container">
-        <h1>{{ heading }}</h1>
+<div id="content-container">
+    <h1>{{ heading }}</h1>
 
-        <div id="prompt-form">
-            <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
-            <div class="button-field">
-                <div id="persona-select">
-                    <label for="user-selection-field">Select user persona:</label>
-                    <select id="user-selection-field" name="user-selection-field">
-                        <option value="option1">User 1</option>
-                        <option value="option2">User 2</option>
-                        <option value="option3">User 3</option>
-                        <option value="option3">User 4</option>
-                        <option value="option3">User 5</option>
-                    </select>
-                </div>
-                <button id="form-submit-button" type="button" onclick="submitForm()">Analyze</button>
+    <div id="prompt-form">
+        <input type="text" id="url-field" name="url-field" required placeholder="Enter the website address">
+        <div class="button-field">
+            <div id="persona-select">
+                <label for="user-selection-field">Select user persona:</label>
+                <select id="user-selection-field" name="user-selection-field">
+                    <option value="middle-aged-male-generic">middle-aged-male-generic</option>
+                    <option value="middle-aged-female-generic">"middle-aged-female-generic"</option>
+                    <option value="child-male-generic">"child-male-generic"</option>
+                    <option value="child-female-generic">"child-female-generic"</option>
+                    <option value="elderly-male-generic">"elderly-male-generic"</option>
+                    <option value="elderly-female-generic">"elderly-female-generic"</option>
+                </select>
             </div>
+            <button id="form-submit-button" type="button" onclick="submitForm()">Analyze</button>
         </div>
-
-        <div id="analyzing" style="display: none">
-            <p>Analyzing...</p>
-            <div class="loader"></div>
-        </div>
-
-        <div id="results" style="display: none">
-            <div id="code-improvements">
-                <h2>Code improvements</h2>
-                <table>
-
-                </table>
-            </div>
-            <div id="css-tags-improvements">
-                <h2>Tags improvements</h2>
-                <table>
-
-                </table>
-            </div>
-        </div>
-
-        <script src="{{ url_for('static', path='evaluate.js') }}"></script>
     </div>
+
+    <div id="analyzing" style="display: none">
+        <p>Analyzing...</p>
+        <div class="loader"></div>
+    </div>
+
+    <div id="results" style="display: none">
+        <div id="code-improvements">
+            <h2>Code improvements</h2>
+            <table>
+
+            </table>
+        </div>
+        <div id="css-tags-improvements">
+            <h2>Tags improvements</h2>
+            <table>
+
+            </table>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='evaluate.js') }}"></script>
+</div>
 </body>
 </html>
