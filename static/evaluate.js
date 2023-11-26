@@ -42,6 +42,7 @@ function submitForm() {
         let domain;
         let semantics_table;
         let persona_table;
+        let score;
 
         $.ajax({
             url: '/process_form',
@@ -53,6 +54,7 @@ function submitForm() {
                 css_table = data["css-tags-improvements"];
                 semantics_table = data["semantic-suggestions"]
                 persona_table = data["persona_suggestions"]
+                score = data["score"]
                 domain = data["domain"];
                 generateHTMLTable(ci_table);
                 generateSemanticsTable(semantics_table);
