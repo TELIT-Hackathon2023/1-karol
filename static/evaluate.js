@@ -41,6 +41,7 @@ function submitForm() {
         let css_table;
         let domain;
         let semantics_table;
+        let persona_table;
 
         $.ajax({
             url: '/process_form',
@@ -51,10 +52,12 @@ function submitForm() {
                 ci_table = data["code-improvements"];
                 css_table = data["css-tags-improvements"];
                 semantics_table = data["semantic-suggestions"]
+                persona_table = data["persona_suggestions"]
                 domain = data["domain"];
                 generateHTMLTable(ci_table);
                 generateSemanticsTable(semantics_table);
                 generateCSSTagsTable(css_table, domain)
+                generatePersonaTable(persona_table)
 
             },
             statusCode: {
@@ -104,6 +107,23 @@ function generateSemanticsTable(semantics_table) {
     }
 
     $('#semantic-suggestions table').replaceWith(tableHTML);
+}
+
+function generatePersonaTable(persona_table){
+    let tableHTML = '<h3>No improvements for persona<h3/>';
+
+    if(persona_table.length > 0){
+        tableHTML = '<table>';
+
+        for (var i = 0; i < persona_table.length; i++) {
+            var row = persona_table[i];
+            tableHTML += '<tr><td><div class="persona-error">' + row[0] + '</div></td><td class="persona-suggestion">' + row[1] + '</td></tr>';
+        }
+
+        tableHTML += '</table>';
+    }
+
+    $('#persona-suggestions table').replaceWith(tableHTML);
 }
 
 function generateCSSTagsTable(css_table, domain) {

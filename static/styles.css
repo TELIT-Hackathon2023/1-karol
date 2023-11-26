@@ -147,3 +147,12 @@ th, td {
 .semantics-suggestion {
     font-size: 10px;
 }
+
+.persona-error {
+    font-size: 12px;
+    width: 200px;
+}
+
+.persona-suggestion {
+    font-size: 10px;
+}
